@@ -17,6 +17,12 @@ function addNote(title, body) {
     saveNotes(notes);
 };
 
+function listNotes() {
+    const notes = loadNotes();
+    console.log(chalk.gray.inverse('Your Notes:'));
+    notes.map((note) => console.log(note.title));
+}
+
 function removeNote(title) {
     const notes = loadNotes();
 
@@ -58,5 +64,6 @@ function loadNotes() {
 module.exports = {
     getNotes,
     addNote,
-    removeNote
+    removeNote,
+    listNotes
 };
