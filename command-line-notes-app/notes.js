@@ -38,9 +38,18 @@ function removeNote(title) {
     }
 }
 
-function getNotes() {
-    return "Your notes..."
-};
+function readNote(title) {
+    const notes = loadNotes();
+
+    const note = notes.find((note) => note.title === title);
+
+    if (note) {
+        console.log(chalk.gray('Your Note:'));
+        console.log('Title: ', note.title, 'Text: ', note.body);
+    } else {
+        console.log(chalk.red('Note doesn\'t exist'));
+    }
+}
 
 // Helper methods
 function loadNotes() {
@@ -62,7 +71,7 @@ function loadNotes() {
 
 
 module.exports = {
-    getNotes,
+    readNote,
     addNote,
     removeNote,
     listNotes
