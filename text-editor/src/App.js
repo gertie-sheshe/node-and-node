@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <p>My React Editor</p>
-      <div className="myeditor">
+      <div>
         <MyEditor />
       </div>
     </div>

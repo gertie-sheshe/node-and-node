@@ -6,12 +6,13 @@ class MyEditor extends Component {
     editorState: EditorState.createEmpty(),
   };
 
-  componentDidMount = () => {
-    console.log('OLAAAA', this.state);
-  };
-
   onChange = editorState => {
     this.setState({ editorState });
+  };
+
+  onUnderlineClick = event => {
+    const style = event.target.name;
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, style));
   };
 
   handleKeyCommand = command => {
@@ -31,11 +32,22 @@ class MyEditor extends Component {
   render() {
     return (
       <div>
-        <Editor
-          editorState={this.state.editorState}
-          handleKeyCommand={this.handleKeyCommand}
-          onChange={this.onChange}
-        />
+        <button name="UNDERLINE" onClick={this.onUnderlineClick}>
+          Underline
+        </button>
+        <button name="BOLD" onClick={this.onUnderlineClick}>
+          Bold
+        </button>
+        <button name="CODE" onClick={this.onUnderlineClick}>
+          Code
+        </button>
+        <div className="myeditor">
+          <Editor
+            editorState={this.state.editorState}
+            handleKeyCommand={this.handleKeyCommand}
+            onChange={this.onChange}
+          />
+        </div>
       </div>
     );
   }
