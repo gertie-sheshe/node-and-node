@@ -40,6 +40,7 @@
 .myeditor {
   border: 3px solid #1111;
   width: 500px;
+  height: 300px;
 }
 
 button {

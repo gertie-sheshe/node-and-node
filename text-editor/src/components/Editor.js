@@ -1,13 +1,28 @@
 import React, { Component } from 'react';
 import { Editor, EditorState, RichUtils } from 'draft-js';
+import { stateToHTML } from 'draft-js-export-html';
 
 class MyEditor extends Component {
   state = {
     editorState: EditorState.createEmpty(),
   };
 
+  setDomEditorRef = ref => (this.domEditor = ref);
+
+  focus = () => this.domEditor.focus();
+
+  componentDidMount() {
+    this.domEditor.focus();
+  }
+
   onChange = editorState => {
-    this.setState({ editorState });
+    const options = {
+      BOLD: { element: 'b' },
+    };
+    this.setState({
+      editorState,
+      editorContentHtml: stateToHTML(editorState.getCurrentContent(), options),
+    });
   };
 
   onUnderlineClick = event => {
@@ -41,13 +56,17 @@ class MyEditor extends Component {
         <button name="CODE" onClick={this.onUnderlineClick}>
           Code
         </button>
-        <div className="myeditor">
+        <div className="myeditor" autoFocus>
           <Editor
             editorState={this.state.editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
+            ref={this.setDomEditorRef}
           />
         </div>
+        <div
+          dangerouslySetInnerHTML={{ __html: this.state.editorContentHtml }}
+        />
       </div>
     );
   }
